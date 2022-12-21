@@ -19,6 +19,7 @@ def get_flight():
         'type_plane': tpe,
     }
 
+
 def display_flights(flights):
     """
     displaying the given information
@@ -54,24 +55,15 @@ def display_flights(flights):
         print('list is empty')
 
 
-def select_flights(flights):
+def select_flights(flights, t):
     """
     selecting flights that are appropriate
     """
-    t = input("choose type of the plane: ")
-    count = 0
+    result = []
     for flight in flights:
-        if flight.get('type_plane') == t:
-            count += 1
-            print(
-                '{:>4}: {} {}'.format(
-                    count,
-                    flight.get('destination', ''),
-                    flight.get("number_flight")
-                )
-            )
-    if count == 0:
-        print("We couldn't find this type of plane")
+        if t in str(flight.values()):
+            result.append(flight)
+    return result
 
 
 def main():
@@ -94,7 +86,9 @@ def main():
         elif command == 'list':
             display_flights(flights)
         elif command.startswith('select'):
-            select_flights(flights)
+            a = input("choose type of the plane: ")
+            selected = select_flights(flights, a)
+            display_flights(selected)
         elif command == 'help':
             print("command list:\n")
             print("add - add information about a flight;")
